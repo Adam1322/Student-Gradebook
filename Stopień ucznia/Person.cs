@@ -1,8 +1,8 @@
 ﻿namespace Stopień_ucznia
 {
-    public abstract class Student
+    public abstract class Person
     {
-        public Student(string name, string surname)
+        public Person(string name, string surname)
         {
             this.Name = name;
             this.Surname = surname;

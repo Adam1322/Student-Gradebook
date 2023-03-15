@@ -18,6 +18,11 @@ Console.BackgroundColor = ConsoleColor.Black;
 Console.ForegroundColor = ConsoleColor.DarkBlue;
 
 var employee = new StudentInFile("Adam", "Kuliczkowski");
+employee.GradeAdded += EmployeeGradeAdded;
+void EmployeeGradeAdded(object sender, EventArgs args)
+{
+    Console.WriteLine("Add new grade");
+}
 while (true)
 {
     Console.WriteLine("Enter a student grade from 1 to 6 and press enter to accept the grade. To finish grading, select 'q' and press enter.");

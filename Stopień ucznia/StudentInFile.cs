@@ -3,13 +3,16 @@
     public class StudentInFile : StudentBase
     {
         private const string fileName = "grades.txt";
-        private List<float> grades = new List<float>();
 
         public StudentInFile(string name, string surname)
             : base(name, surname)
         {
             using (FileStream fs = File.Create(fileName));
         }
+
+        public delegate void GradeAddedDelegate(object sender, EventArgs args);
+
+        public event GradeAddedDelegate GradeAdded;
 
         public override void AddGrade(float grade)
         {
@@ -18,6 +21,10 @@
                 using (var writer = File.AppendText(fileName))
                 {
                     writer.WriteLine(grade);
+                }
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
                 }
             }
             else
@@ -38,7 +45,6 @@
 
         public override void AddGrade(char grade)
         {
-            using (var reader = File.AppendText(fileName))
                 switch (grade)
                 {
                     case 'A':
@@ -95,10 +101,6 @@
                         line = reader.ReadLine();
                     }
                 }
-            }
-            foreach (var grade in this.grades)
-            {
-                statistics.AddGrade(grade);
             }
             return statistics;
         }
